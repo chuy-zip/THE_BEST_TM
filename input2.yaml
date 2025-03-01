@@ -1,0 +1,119 @@
+q_states:
+  q_list:
+    - '0'  # Initial state
+    - '1'  # Move left after reaching the end
+    - '2'  # Complement each digit
+    - 'H'  # Halt state
+  initial: '0'
+  final: 'H'
+
+alphabet:
+  - '0'
+  - '1'
+
+tape_alphabet:
+  - '0'
+  - '1'
+  - B  # Blank space on the tape
+
+delta:
+  # Move to the end of the string in state q0
+  - params:
+      initial_state: '0'
+      mem_cache_value: B
+      tape_input: '0'
+    output:
+      final_state: '0'
+      mem_cache_value: B
+      tape_output: '0'
+      tape_displacement: R
+
+  - params:
+      initial_state: '0'
+      mem_cache_value: B
+      tape_input: '1'
+    output:
+      final_state: '0'
+      mem_cache_value: B
+      tape_output: '1'
+      tape_displacement: R
+
+  - params:
+      initial_state: '0'
+      mem_cache_value: B
+      tape_input: B
+    output:
+      final_state: '1'
+      mem_cache_value: B
+      tape_output: B
+      tape_displacement: L
+
+  # Move left until the first '1' is found or a BLANK in state q1
+  - params:
+      initial_state: '1'
+      mem_cache_value: B
+      tape_input: '0'
+    output:
+      final_state: '1'
+      mem_cache_value: B
+      tape_output: '0'
+      tape_displacement: L
+
+  - params:
+      initial_state: '1'
+      mem_cache_value: B
+      tape_input: '1'
+    output:
+      final_state: '2'
+      mem_cache_value: B
+      tape_output: '1'
+      tape_displacement: L
+
+  - params:
+      initial_state: '1'
+      mem_cache_value: B
+      tape_input: B
+    output:
+      final_state: 'H'
+      mem_cache_value: B
+      tape_output: B
+      tape_displacement: S
+
+  # Complement digits in state q2
+  - params:
+      initial_state: '2'
+      mem_cache_value: B
+      tape_input: '0'
+    output:
+      final_state: '2'
+      mem_cache_value: B
+      tape_output: '1'
+      tape_displacement: L
+
+  - params:
+      initial_state: '2'
+      mem_cache_value: B
+      tape_input: '1'
+    output:
+      final_state: '2'
+      mem_cache_value: B
+      tape_output: '0'
+      tape_displacement: L
+
+  - params:
+      initial_state: '2'
+      mem_cache_value: B
+      tape_input: B
+    output:
+      final_state: 'H'
+      mem_cache_value: B
+      tape_output: B
+      tape_displacement: R
+
+simulation_strings:
+  - '10111110'
+  - '01100'
+  - '00000'
+  - '101010'
+  - '101110'
+  - B
