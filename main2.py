@@ -14,29 +14,28 @@ def num_to_binary(num):
 
 tm_data = {}
 # Open and read the JSON file
-with open('TM.json', 'r') as file:
+with open('test_tm.json', 'r') as file:
     tm_data = json.load(file)
 
 # Print the data
-menu_open = True
 
-while menu_open:
-    
-    print("\nWelcome to the Fibonacci Turing Machine Simulation")
-    binary_num = num_to_binary(5)
+
+print("\nWelcome to the Fibonacci Turing Machine Simulation")
+print("Enter the max number you want to execute (5 would execute fibo(1), fibo(2).... until fibo(5))")
+print("The time will be measured for each TM simulation and then will be plotted")
+
+tm_opt = int(input())
+number_counter = tm_opt
+
+while number_counter != 30:
+
+    binary_num = num_to_binary(number_counter)
+    print(f"We will be testing the string: {binary_num}")
 
     Turing_Machine = TM(tm_data)
 
+    #simulation
     Turing_Machine.initializeTape(binary_num)
+    Turing_Machine.start_simulation(binary_num)
 
-    #print(Turing_Machine.initial_state)
-    #print(Turing_Machine.final_state)
-    #print(Turing_Machine.tape)
-
-    tr = Turing_Machine.transitions
-
-    #for key, value in tr.items():
-    #    print(Turing_Machine.format_transition("a", key, value))
-    Turing_Machine.update_machine()
-
-    tm_opt = input()
+    number_counter = 30

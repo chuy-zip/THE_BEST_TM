@@ -9,21 +9,6 @@ class TM():
         self.blank = tm_data["Blanc"]
         self.tape = []
         self.head = { "current_state": str, "position": int }
-    # I made this to later make easier the search of a matching transitions with the state of the tm machine
-    # def formatTransitions(self, transitions):
-
-    #     new_transitions = {}
-
-    #     for state in self.states:
-    #         new_transitions[state] = []
-
-    #     for transition in transitions:
-
-    #         initial_state = transition["params"]["initial_state"]
-
-    #         new_transitions[initial_state].append(transition)
-
-    #     return new_transitions
     
     #This function must be called only after the usar has selected a tape.
     #And also when the transitions have already been formatted with the function above.
@@ -71,7 +56,7 @@ class TM():
         #When we exit the simulation its either because we reached final state, or at some point
         #no transition matched the instant description of the turing machine and exit with a break
 
-        if self.head["current_state"] == self.final_state:
+        if self.head["current_state"] in self.final_state:
 
             print("The turing machine accepts the string: ", selected_word)
 
