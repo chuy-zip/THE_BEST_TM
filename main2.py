@@ -9,6 +9,9 @@ from fibo_tm import TM
 def num_to_binary(num):
     binary_string = ""
 
+    if num == 0:
+        return "0"
+    
     while num > 0:
         binary_string = str(num % 2) + binary_string
         num //= 2
@@ -33,7 +36,7 @@ print("Enter the step size (e.g., 1 for a step of 1 by 1, 5 for 5 by 5, etc.)")
 step = int(input("Step: "))
 
 
-number_counter = 1
+number_counter = 0
 
 # 2 arrays, one for saving execution time
 execution_times = []
@@ -55,11 +58,11 @@ while number_counter <= tm_opt:
     Turing_Machine.start_simulation(binary_num)
     end_time = time.time()  # final time
 
-    # Calcular el tiempo de ejecución en segundos
+    # exec time
     execution_time = end_time - start_time
     print(f"Execution time for {number_counter}: {execution_time:.6f} seconds")
 
-    # Guardar el tiempo de ejecución y el número de entrada
+    # time and number
     execution_times.append(execution_time)
     input_numbers.append(number_counter)
 
@@ -67,18 +70,15 @@ while number_counter <= tm_opt:
 
 plt.plot(input_numbers, execution_times, marker='o')
 
-degree = 2  # Grado del polinomio (puedes cambiarlo)
+degree = 2  
 coefficients = np.polyfit(input_numbers, execution_times, degree)
 polynomial = np.poly1d(coefficients)
 
-# Crear un rango de valores para graficar la regresión
 x_values = np.linspace(min(input_numbers), max(input_numbers), 100)
 y_values = polynomial(x_values)
 
-# Graficar la regresión polinomial
 plt.plot(x_values, y_values, label=f"Polynomial Regression (degree {degree})", linestyle="--")
 
-# Añadir leyenda y detalles a la gráfica
 plt.title("Turing Machine Execution Time")
 plt.xlabel("Input Number")
 plt.ylabel("Execution Time (seconds)")
@@ -88,7 +88,7 @@ plt.show()
 
 with open('execution_times.csv', mode='w', newline='') as file:
     writer = csv.writer(file)
-    writer.writerow(["Input Number", "Execution Time (seconds)"])  # Escribir el encabezado
+    writer.writerow(["Input Number", "Execution Time (seconds)"]) 
     for number, time in zip(input_numbers, execution_times):
         writer.writerow([number, time])
 
