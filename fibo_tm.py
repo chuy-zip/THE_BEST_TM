@@ -59,6 +59,7 @@ class TM():
         if self.head["current_state"] in self.final_state:
 
             print("The turing machine accepts the string: ", selected_word)
+            print("Final tape:", "".join(self.tape))
 
         else:
             current_state = self.head["current_state"]
@@ -77,46 +78,44 @@ class TM():
         current_position = self.head["position"]
         char_in_current_position = self.tape[current_position]
 
-        transition_inputs = self.transitions.keys()
-
         #print(transition_inputs)
 
-        for input in transition_inputs:
-            # example
-            # input: 'q0,_'
-            # output: ['q1', 'X', 'R'], change head state to q1, replace with X and move to the Right
+    
+        # example
+        # current_state: 'q0'
+        # char_in_current_position> '_'
+        # output: ['q1', 'X', 'R'], change head state to q1, replace with X and move to the Right
 
-            current_transition = f"{current_state},{char_in_current_position}"
-            print(f"Comparing {current_transition} with input {input}")
+        current_transition = f"{current_state},{char_in_current_position}"
+        print(f"Searching for transition: {current_transition} ")
 
-            if current_transition == input:
+        if current_transition == current_transition in self.transitions:
 
-                output = self.transitions[input] 
-                new_state = output[0]
-                new_tape_char = output[1]
-                head_direction = output[2]
+            output = self.transitions[current_transition] 
+            new_state = output[0]
+            new_tape_char = output[1]
+            head_direction = output[2]
 
-                print("Matching transition for current state of TM:", self.format_transition(input, output))
-                #We found the matching transition, we replace for the corresponding values
-                self.head["current_state"] = new_state
-                self.tape[current_position] = new_tape_char
+            print("Matching transition for current state of TM:", self.format_transition(current_transition, output))
+            #We found the matching transition, we replace for the corresponding values
+            self.head["current_state"] = new_state
+            self.tape[current_position] = new_tape_char
 
-                if head_direction == "R":
-                    self.move_right()
-                
-                elif head_direction == "L":
-                    self.move_left()
+            if head_direction == "R":
+                self.move_right()
+            
+            elif head_direction == "L":
+                self.move_left()
 
-                elif head_direction == "-":
-                    print("Remaining in the same position---------------")
-                    self.show_instant_description()
-                    continue
+            elif head_direction == "-":
+                print("Remaining in the same position---------------")
+                self.show_instant_description()
 
-                #Also this method returns true if a transition is found, if not it will return false
-                #This is to help the simulation stop when a string is not accepted by the language.
-                return True
-                
-        return False       
+            #Also this method returns true if a transition is found, if not it will return false
+            #This is to help the simulation stop when a string is not accepted by the language.
+            return True
+        else:    
+            return False       
             
             
     def move_left(self):
