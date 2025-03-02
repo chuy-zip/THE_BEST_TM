@@ -6,22 +6,24 @@ import csv
 from fibo_tm import TM
 
 # reference: https://www.geeksforgeeks.org/python-program-to-covert-decimal-to-binary-number/
-def num_to_binary(num):
-    binary_string = ""
+def num_to_unary(num):
+    counter_string = "|"
 
-    if num == 0:
-        return "0"
+    if num == 1:
+        return "|1|"
     
-    while num > 0:
-        binary_string = str(num % 2) + binary_string
-        num //= 2
-    print(binary_string)
+    if num > 1:
+        for i in range(num):
+            counter_string = counter_string + "1"
 
-    return binary_string
+        counter_string = counter_string + "|"
+    print(counter_string)
+
+    return counter_string
 
 tm_data = {}
 # Open and read the JSON file
-with open('test_tm.json', 'r') as file:
+with open('TM.json', 'r') as file:
     tm_data = json.load(file)
 
 # Print the data
@@ -45,7 +47,7 @@ input_numbers = []
 
 while number_counter <= tm_opt:
 
-    binary_num = num_to_binary(number_counter)
+    binary_num = num_to_unary(tm_opt)
     print(f"\nWe will be converting the number {number_counter} to binary and test the string -> {binary_num}")
 
     Turing_Machine = TM(tm_data)
