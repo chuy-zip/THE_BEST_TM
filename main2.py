@@ -47,7 +47,7 @@ input_numbers = []
 
 while number_counter <= tm_opt:
 
-    binary_num = num_to_unary(tm_opt)
+    binary_num = num_to_unary(number_counter)
     print(f"\nWe will be converting the number {number_counter} to binary and test the string -> {binary_num}")
 
     Turing_Machine = TM(tm_data)
@@ -56,9 +56,9 @@ while number_counter <= tm_opt:
     Turing_Machine.initializeTape(binary_num)
 
     #simulation running
-    start_time = time.time()  # initial time
+    start_time = time.perf_counter()  # initial time
     Turing_Machine.start_simulation(binary_num)
-    end_time = time.time()  # final time
+    end_time = time.perf_counter()  # final time
 
     # exec time
     execution_time = end_time - start_time
