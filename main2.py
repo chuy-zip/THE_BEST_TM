@@ -38,7 +38,7 @@ print("Enter the step size (e.g., 1 for a step of 1 by 1, 5 for 5 by 5, etc.)")
 step = int(input("Step: "))
 
 
-number_counter = 0
+number_counter = 1
 
 # 2 arrays, one for saving execution time
 execution_times = []
